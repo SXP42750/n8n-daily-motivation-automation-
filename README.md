@@ -44,8 +44,13 @@ No code required. Just creativity and curiosity!
 
 ## 📸 Workflow Screenshot
 
-![n8n Workflow Screenshot](![n8n_workflow](https://github.com/user-attachments/assets/6c0bbf21-45f0-442a-86a2-729e2eee37c1)
-)
+![n8n Workflow Screenshot]
+<h3 align="center">🧠 Workflow Screenshot</h3>
+
+<p align="center">
+  <img src="n8n_workflow.png" width="600"/>
+</p>
+
 
 ---
 
