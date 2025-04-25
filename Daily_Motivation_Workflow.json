@@ -1,0 +1,133 @@
+{
+  "name": "Daily Motivation Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * 4 *"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "094fd458-1144-474a-a038-a8ad0a6a60bc",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://zenquotes.io/api/random",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        220,
+        0
+      ],
+      "id": "91a66ed3-bdf2-493a-b5ee-75e59565509c",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c8812a0f-52f3-403e-90bb-e637f1d70d0d",
+              "name": "quote_Text",
+              "value": "=\"Quote of the Day:   '{{ $json[\"q\"] }}'   - {{ $json[\"a\"] }}\"",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        440,
+        0
+      ],
+      "id": "4a2b7272-d90b-48d6-87ae-e4f43df90952",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "sendTo": "saikaushikpeesari71@gmail.com",
+        "subject": "Your Daily Motivation",
+        "emailType": "text",
+        "message": "={{ $json.quote_Text }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        660,
+        0
+      ],
+      "id": "fcbbc764-22dc-4586-a9c9-f376ae23a558",
+      "name": "Gmail",
+      "webhookId": "ca1a7026-2f49-446b-8a34-994c41916122",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "GKttkkzwlBadsGXf",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "eb124fa5-54fd-4152-9c19-2a1a70c459c7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4f86a3d90874ef56b16e796d7ce5942cd3f4375b510e8c881cbe302a34dfe53b"
+  },
+  "id": "5mXIqTgRmq3zNcA1",
+  "tags": []
+}
